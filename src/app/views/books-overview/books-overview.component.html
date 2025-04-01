@@ -15,12 +15,14 @@
     </thead>
     <tbody>
         @for (book of paginatedBooks; track book.id) {
-        <tr>
-            <td><input type="checkbox"></td>
+        <tr (click)="onSelectBook(book)" 
+            [class.selected]="isSelected(book)"
+            [ngStyle]="{'background-color': isFeatured(book) ? 'lightgreen' : ''}">
+            <td><input type="checkbox" [checked]="isSelected(book)"></td>
             <td>{{ book.title }}</td>
             <td>{{ book.author }} </td>
             <td>{{ book.genre }}</td>
-            <td>{{ book.price }}</td>
+            <td>{{ book.price | currency: "EUR" }}</td>
         </tr>
         }
     </tbody>
