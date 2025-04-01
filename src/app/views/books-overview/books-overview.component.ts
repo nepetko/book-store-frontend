@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Book } from '../../models/book';
 import { BookService } from '../../services/book.service';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-books-overview',
@@ -14,7 +15,7 @@ export class BooksOverviewComponent {
   paginatedBooks: Book[] = [];
   readonly myPageSize = 15;
 
-  constructor(private bookService: BookService) { }
+  constructor(private bookService: BookService, private router: Router) { }
 
   ngOnInit(): void {
     this.bookService.getBooks().subscribe({
@@ -36,5 +37,16 @@ export class BooksOverviewComponent {
     const startIndex = event.pageIndex * event.pageSize;
     const endIndex = startIndex + event.pageSize;
     this.paginatedBooks = this.books.slice(startIndex, endIndex);
+  }
+
+  onAddBook() {
+    this.router.navigate(['/add-book']);
+  }
+
+  onEditBook() {
+
+  }
+
+  onDeleteBook() {
   }
 }
