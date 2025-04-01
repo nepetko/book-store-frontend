@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        @for (book of books; track book.id) {
+        @for (book of paginatedBooks; track book.id) {
         <tr>
             <td><input type="checkbox"></td>
             <td>{{ book.title }}</td>
@@ -25,3 +25,5 @@
         }
     </tbody>
 </table>
+<mat-paginator [length]="books.length" [pageSize]="myPageSize" (page)="onPageChange($event)">
+</mat-paginator>

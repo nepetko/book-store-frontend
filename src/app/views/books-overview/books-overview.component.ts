@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
 import { Book } from '../../models/book';
 import { BookService } from '../../services/book.service';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-books-overview',
-  imports: [],
+  imports: [MatPaginatorModule],
   templateUrl: './books-overview.component.html',
   styleUrl: './books-overview.component.css'
 })
 export class BooksOverviewComponent {
   books: Book[] = [];
+  paginatedBooks: Book[] = [];
+  readonly myPageSize = 15;
 
   constructor(private bookService: BookService) { }
 
@@ -18,6 +21,7 @@ export class BooksOverviewComponent {
       next: (data) => {
         this.books = data;
         this.books.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        this.paginatedBooks = this.books.slice(0, this.myPageSize);
       },
       error: (error) => {
         console.error('Error:', error);
@@ -26,5 +30,11 @@ export class BooksOverviewComponent {
         console.log('Request complete');
       }
     });
+  }
+
+  onPageChange(event: PageEvent) {
+    const startIndex = event.pageIndex * event.pageSize;
+    const endIndex = startIndex + event.pageSize;
+    this.paginatedBooks = this.books.slice(startIndex, endIndex);
   }
 }

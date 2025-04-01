@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-about',
@@ -7,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './about.component.css'
 })
 export class AboutComponent {
+  constructor(private toastr: ToastrService) { }
+
+  ngOnInit() {
+    this.toastr.info("hello world");
+  }
 
 }
