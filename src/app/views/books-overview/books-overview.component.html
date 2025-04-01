@@ -10,16 +10,18 @@
             <th>Book Title</th>
             <th>Author</th>
             <th>Genre</th>
-            <th>Price</th>           
+            <th>Price</th>
         </tr>
     </thead>
     <tbody>
+        @for (book of books; track book.id) {
         <tr>
             <td><input type="checkbox"></td>
-            <td>title1</td>
-            <td>author1  </td>
-            <td>genre1 </td>
-            <td>price1 </td>            
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }} </td>
+            <td>{{ book.genre }}</td>
+            <td>{{ book.price }}</td>
         </tr>
+        }
     </tbody>
 </table>
